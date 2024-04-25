@@ -12,15 +12,16 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-@Repository
-public class EnlistmentDaoImpl implements EnlistmentDao{
 
+@Repository
+public class EnlistmentDaoImpl implements EnlistmentDao {
     JdbcTemplate jdbcTemplate;
 
     @Autowired
     public EnlistmentDaoImpl(DataSource dataSource){
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
+
     @Override
     public Enlistment create(Student student, Section section) {
         String sql = "INSERT INTO enlistments (student_number, section_id) VALUES (?, ?)";
@@ -47,7 +48,7 @@ public class EnlistmentDaoImpl implements EnlistmentDao{
     }
 }
 
-class EnlistmentWrapper implements RowMapper<Enlistment>{
+class EnlistmentWrapper implements RowMapper<Enlistment> {
     @Override
     public Enlistment mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Enlistment(

@@ -17,13 +17,12 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/rooms")
 public class RoomController {
-
     private RoomService roomService;
     private AppUserValidator appUserValidator;
 
     // TODO What bean should be wired here?
     @Autowired
-    public RoomController(RoomService roomService, AppUserValidator appUserValidator){
+    public RoomController(RoomService roomService, AppUserValidator appUserValidator) {
         this.roomService = roomService;
         this.appUserValidator = appUserValidator;
     }
@@ -49,9 +48,9 @@ public class RoomController {
         Room newRoom;
         appUserValidator.facultyRoleValidator(auth);
 
-        try{
+        try {
             newRoom = roomService.create(room);
-        }catch (DuplicateKeyException e) {
+        } catch (DuplicateKeyException e) {
             throw new RecordAlreadyExistsException(String.format("Room Name: %s not found", room.getName()));
         }
         return newRoom;
@@ -68,7 +67,7 @@ public class RoomController {
         Room updatedRoom;
         appUserValidator.facultyRoleValidator(auth);
 
-        try{
+        try {
             updatedRoom = roomService.update(room);
         } catch (EmptyResultDataAccessException e) {
             throw new RecordNotFoundException(String.format("Room Name: %s not found", room.getName()));
@@ -87,11 +86,11 @@ public class RoomController {
         // TODO implement this handler
         appUserValidator.facultyRoleValidator(auth);
 
-        try{
+        try {
             roomService.delete(roomName);
-        }catch (DataIntegrityViolationException | EmptyResultDataAccessException e) {
+        } catch (DataIntegrityViolationException | EmptyResultDataAccessException e) {
 
-            if (e instanceof EmptyResultDataAccessException) {
+            if(e instanceof EmptyResultDataAccessException) {
                 throw new RecordNotFoundException(String.format("Room Name: %s not found", roomName));
             }
 

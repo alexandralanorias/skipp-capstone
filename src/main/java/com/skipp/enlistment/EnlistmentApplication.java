@@ -17,9 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 @EnableMethodSecurity
 //@EnableSwagger2WebMvc
 public class EnlistmentApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(EnlistmentApplication.class, args);
 	}
-
 }

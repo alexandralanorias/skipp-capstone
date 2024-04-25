@@ -18,12 +18,10 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/faculty")
 public class FacultyController {
-
     private final FacultyService facultyService;
     private final AppUserValidator appUserValidator;
 
     // TODO What bean should be wired here?
-
     @Autowired
 
     public FacultyController(FacultyService facultyService, AppUserValidator appUserValidator){
@@ -48,9 +46,9 @@ public class FacultyController {
         Faculty faculty;
         appUserValidator.facultyRoleValidator(auth);
 
-        try{
+        try {
             faculty = facultyService.findByNumber(facultyNumber, true);
-        }catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new RecordNotFoundException(String.format("Faculty Number: %s not found", facultyNumber));
         }
 
@@ -70,9 +68,9 @@ public class FacultyController {
         Faculty newFaculty;
         appUserValidator.facultyRoleValidator(auth);
 
-        try{
+        try {
             newFaculty = facultyService.create(faculty);
-        }catch (DuplicateKeyException e){
+        } catch (DuplicateKeyException e) {
             throw new RecordAlreadyExistsException(String.format("Faculty Number: %s already exists", faculty.getFacultyNumber()));
         }
 
@@ -88,9 +86,9 @@ public class FacultyController {
         // TODO implement this handler
         Faculty updatedFaculty;
         appUserValidator.facultyRoleValidator(auth);
-        try{
+        try {
             updatedFaculty = facultyService.update(faculty);
-        }catch (EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             throw new RecordNotFoundException(String.format("Faculty Number: %s not found", faculty.getFacultyNumber()));
         }
 
@@ -105,13 +103,13 @@ public class FacultyController {
     public void deleteFaculty(@PathVariable Integer facultyNumber) {
         // TODO implement this handler
 
-        try{
+        try {
             facultyService.delete(facultyNumber);
-        }catch (DataIntegrityViolationException | EmptyResultDataAccessException e) {
-
+        } catch (DataIntegrityViolationException | EmptyResultDataAccessException e) {
             if (e instanceof EmptyResultDataAccessException) {
                 throw new RecordNotFoundException(String.format("Faculty Number: %s not found", facultyNumber));
             }
+
             throw new ReferentialIntegrityViolationException("Faculty " + facultyNumber + " is still teaching a section");
         }
     }

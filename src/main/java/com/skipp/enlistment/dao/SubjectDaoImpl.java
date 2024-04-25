@@ -10,15 +10,16 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+
 @Repository
 public class SubjectDaoImpl implements SubjectDao{
-
     JdbcTemplate jdbcTemplate;
 
     @Autowired
     public SubjectDaoImpl(DataSource dataSource){
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
+
     @Override
     public Collection<Subject> findAllSubjects() {
         String sql = "SELECT * FROM subjects";

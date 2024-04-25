@@ -11,16 +11,16 @@ import java.util.Collection;
 
 @Service
 @Transactional
-public class RoomServiceImpl implements RoomService{
-
+public class RoomServiceImpl implements RoomService {
     private final RoomDao roomRepo;
     private final RoomValidator roomValidator;
 
     @Autowired
-    public RoomServiceImpl (RoomDao roomRepo, RoomValidator roomValidator){
+    public RoomServiceImpl (RoomDao roomRepo, RoomValidator roomValidator) {
         this.roomRepo = roomRepo;
         this.roomValidator = roomValidator;
     }
+
     @Override
     public Collection<Room> findAllRooms() {
         return roomRepo.findAllRooms();

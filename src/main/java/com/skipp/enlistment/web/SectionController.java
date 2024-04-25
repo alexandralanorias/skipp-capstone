@@ -21,7 +21,6 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/sections")
 public class SectionController {
-
     private final SectionService sectionService;
     private final SubjectService subjectService;
     private final RoomService roomService;
@@ -29,14 +28,11 @@ public class SectionController {
     private final AppUserValidator appUserValidator;
     private final SectionValidator sectionValidator;
 
-
-
     // TODO What bean/s should be wired here?
     @Autowired
-
     public SectionController(SectionService sectionService, SubjectService subjectService,
                              RoomService roomService, FacultyService facultyService,
-                             AppUserValidator appUserValidator, SectionValidator sectionValidator){
+                             AppUserValidator appUserValidator, SectionValidator sectionValidator) {
         this.sectionService = sectionService;
         this.subjectService = subjectService;
         this.roomService = roomService;
@@ -61,9 +57,9 @@ public class SectionController {
     public SectionDto getSection(@PathVariable String sectionId) {
         // TODO implement this handler
         Section section;
-        try{
+        try {
             section = sectionService.findById(sectionId,true);
-        }catch (EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             throw new RecordNotFoundException(String.format("Section ID: %s not found", sectionId));
         }
 
@@ -91,9 +87,9 @@ public class SectionController {
 
         Section sectionDetails = new Section(section.getSectionId(), subject, schedule, room, faculty);
 
-        try{
+        try {
             newSection = sectionService.create(sectionDetails);
-        }catch (DuplicateKeyException | ScheduleConflictException e) {
+        } catch (DuplicateKeyException | ScheduleConflictException e) {
 
             if (e instanceof ScheduleConflictException) {
                 throw new SectionCreationException(e.getMessage());
@@ -124,9 +120,9 @@ public class SectionController {
 
         Section sectionDetails = new Section(section.getSectionId(), subject, schedule, room, faculty);
 
-        try{
+        try {
             updatedSection = sectionService.update(sectionDetails);
-        }catch (EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             throw new RecordNotFoundException("Section ID: " + section.getSectionId() + " not found");
         }
 
@@ -140,7 +136,7 @@ public class SectionController {
     @PreAuthorize("hasRole('FACULTY')")
     public void deleteSection(@PathVariable String sectionId, Authentication auth) {
         appUserValidator.facultyRoleValidator(auth);
-        try{
+        try {
             sectionService.delete(sectionId);
         } catch (DataIntegrityViolationException | EmptyResultDataAccessException e) {
             if (e instanceof EmptyResultDataAccessException) {

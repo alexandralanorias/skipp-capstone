@@ -10,9 +10,9 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-@Repository
-public class RoomDaoImpl implements RoomDao{
 
+@Repository
+public class RoomDaoImpl implements RoomDao {
     JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -53,8 +53,7 @@ public class RoomDaoImpl implements RoomDao{
     }
 }
 
-class RoomDaoWrapper implements RowMapper<Room>{
-
+class RoomDaoWrapper implements RowMapper<Room> {
     @Override
     public Room mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Room(

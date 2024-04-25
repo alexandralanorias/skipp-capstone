@@ -10,7 +10,8 @@ import java.util.Collection;
 
 @Service
 @Transactional
-public class SubjectServiceImpl implements SubjectService{
+
+public class SubjectServiceImpl implements SubjectService {
     private final SubjectDao subjectRepo;
 
     @Autowired

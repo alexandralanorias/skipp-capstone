@@ -12,8 +12,7 @@ import java.util.Collection;
 
 @Service
 @Transactional
-public class StudentServiceImpl implements StudentService{
-
+public class StudentServiceImpl implements StudentService {
     private final StudentDao studentRepo;
     private final EnlistmentDao enlistmentRepo;
     private final SectionDao sectionRepo;
@@ -24,7 +23,7 @@ public class StudentServiceImpl implements StudentService{
     @Autowired
     public StudentServiceImpl(StudentDao studentRepo, EnlistmentDao enlistmentRepo,
                               SectionDao sectionRepo, AppUserDao appUserRepo,
-                              PasswordEncoder passwordEncoder, StudentValidator studentValidator){
+                              PasswordEncoder passwordEncoder, StudentValidator studentValidator) {
         this.studentRepo = studentRepo;
         this.enlistmentRepo = enlistmentRepo;
         this.sectionRepo = sectionRepo;
@@ -41,13 +40,15 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public Student findByNumber(int studentNumber, boolean includeSections) {
         Student student = studentRepo.findByNumber(studentNumber);
-        if(includeSections){
+
+        if(includeSections) {
             Collection<Enlistment> enlistments = enlistmentRepo.findAllEnlistedClasses(studentNumber);
             enlistments.forEach(enlistment -> {
                 Section section = sectionRepo.findById(enlistment.sectionId());
                 student.addSection(section);
             });
         }
+
         return student;
     }
 
@@ -62,7 +63,6 @@ public class StudentServiceImpl implements StudentService{
         appUserRepo.create(appUser);
 
         return newStudent;
-
     }
 
     @Override
@@ -86,7 +86,7 @@ public class StudentServiceImpl implements StudentService{
         studentRepo.delete(studentNumber);
     }
 
-    private AppUser studentAppUser(Student student){
+    private AppUser studentAppUser(Student student) {
         String password = passwordEncoder.encode(student.getFirstName().replace(" ", "")+student.getLastName().replace(" ", ""));
         return new AppUser(String.format("ST-%s", student.getStudentNumber()), password, "STUDENT");
     }

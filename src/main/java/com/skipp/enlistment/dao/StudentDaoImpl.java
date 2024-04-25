@@ -10,15 +10,16 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+
 @Repository
 public class StudentDaoImpl implements StudentDao{
-
     JdbcTemplate jdbcTemplate;
 
     @Autowired
     public StudentDaoImpl(DataSource dataSource){
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
+
     @Override
     public Collection<Student> findAllStudents() {
         String sql = "SELECT * FROM students";
@@ -52,8 +53,7 @@ public class StudentDaoImpl implements StudentDao{
     }
 }
 
-class StudentDaoMapper implements RowMapper<Student>{
-
+class StudentDaoMapper implements RowMapper<Student> {
     @Override
     public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Student(

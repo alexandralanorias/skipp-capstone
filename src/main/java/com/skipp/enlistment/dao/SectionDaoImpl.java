@@ -11,15 +11,16 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-@Repository
-public class SectionDaoImpl implements SectionDao{
 
+@Repository
+public class SectionDaoImpl implements SectionDao {
     JdbcTemplate jdbcTemplate;
 
     @Autowired
     public SectionDaoImpl(DataSource dataSource){
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
+
     @Override
     public Section findById(String sectionId) {
         String sql = "SELECT * FROM sections " +
@@ -74,8 +75,7 @@ public class SectionDaoImpl implements SectionDao{
     }
 }
 
-class SectionDaoWrapper implements RowMapper<Section>{
-
+class SectionDaoWrapper implements RowMapper<Section> {
     @Override
     public Section mapRow(ResultSet rs, int rowNum) throws SQLException {
         Subject subject  = new Subject(

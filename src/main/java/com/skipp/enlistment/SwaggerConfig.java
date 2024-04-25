@@ -22,10 +22,11 @@ public class SwaggerConfig {
                 .build()
                 .apiInfo(apiInfo());
     }
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Enlistment Application")
-                .description("This is the API documentation for Enlistment Application.")
+                .title("SKIPP Capstone")
+                .description("Swagger API documentation for the SKIPP Capstone Project :)")
                 .version("1.0")
                 .build();
     }

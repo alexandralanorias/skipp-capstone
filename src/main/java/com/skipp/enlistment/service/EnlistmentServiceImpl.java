@@ -12,7 +12,6 @@ import java.util.Collection;
 @Service
 @Transactional
 public class EnlistmentServiceImpl implements EnlistmentService{
-
     private final EnlistmentDao enlistmentRepo;
     private final SectionDao sectionRepo;
     private final EnlistmentValidator enlistmentValidator;

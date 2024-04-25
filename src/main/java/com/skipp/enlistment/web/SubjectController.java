@@ -17,18 +17,17 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/subjects")
 public class SubjectController {
-
     private final SubjectService subjectService;
     private final AppUserValidator appUserValidator;
 
     // TODO What bean should be wired here?
-
     @Autowired
 
-    public SubjectController(SubjectService subjectService, AppUserValidator appUserValidator){
+    public SubjectController(SubjectService subjectService, AppUserValidator appUserValidator) {
         this.subjectService = subjectService;
         this.appUserValidator = appUserValidator;
     }
+
     // TODO What @XXXMapping annotation should be put here?
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -51,9 +50,9 @@ public class SubjectController {
 
         appUserValidator.facultyRoleValidator(auth);
 
-        try{
+        try {
             newSubject = subjectService.create(subject);
-        }catch (DuplicateKeyException e) {
+        } catch (DuplicateKeyException e) {
             throw new RecordAlreadyExistsException("Subject with subjectId " + subject.getSubjectId() + " already exists.");
         }
 

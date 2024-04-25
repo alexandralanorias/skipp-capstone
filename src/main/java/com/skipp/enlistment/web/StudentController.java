@@ -27,6 +27,7 @@ public class StudentController {
         this.studentService = studentService;
         this.appUserValidator = appUserValidator;
     }
+
     // TODO What @XXXMapping annotation should be put here?
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -45,9 +46,9 @@ public class StudentController {
         Student student;
         appUserValidator.facultyRoleValidator(auth);
 
-        try{
+        try {
             student = studentService.findByNumber(studentNumber, true);
-        } catch (EmptyResultDataAccessException e) {
+        } catch(EmptyResultDataAccessException e) {
             throw new RecordNotFoundException(String.format("Student Number: %s not found", studentNumber));
         }
 
@@ -67,7 +68,7 @@ public class StudentController {
         Student newStudent;
         appUserValidator.facultyRoleValidator(auth);
 
-        try{
+        try {
             newStudent = studentService.create(student);
         } catch (DuplicateKeyException e) {
             throw new RecordAlreadyExistsException("Student with studentNumber " + student.getStudentNumber() + " already exists.");
@@ -86,7 +87,7 @@ public class StudentController {
         Student updatedStudent;
         appUserValidator.facultyRoleValidator(auth);
 
-        try{
+        try {
             updatedStudent = studentService.update(student);
         } catch (EmptyResultDataAccessException e) {
             throw new RecordNotFoundException(String.format("Student Number: %s not found", student.getStudentNumber()));

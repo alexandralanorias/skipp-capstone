@@ -10,15 +10,16 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-@Repository
-public class FacultyDaoImpl implements FacultyDao{
 
+@Repository
+public class FacultyDaoImpl implements FacultyDao {
     JdbcTemplate jdbcTemplate;
 
     @Autowired
     public FacultyDaoImpl(DataSource dataSource){
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
+
     @Override
     public Collection<Faculty> findAllFaculty() {
         String sql = "SELECT * FROM faculty";
@@ -52,7 +53,7 @@ public class FacultyDaoImpl implements FacultyDao{
     }
 }
 
-class FacultyWrapper implements RowMapper<Faculty>{
+class FacultyWrapper implements RowMapper<Faculty> {
 
     @Override
     public Faculty mapRow(ResultSet rs, int rowNum) throws SQLException {

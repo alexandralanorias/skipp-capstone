@@ -9,14 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+
 @Service
 @Transactional
-public class SectionServiceImpl implements SectionService{
+public class SectionServiceImpl implements SectionService {
     private final SectionDao sectionRepo;
     private final SectionValidator sectionValidator;
 
     @Autowired
-    public SectionServiceImpl(SectionDao sectionRepo, SectionValidator sectionValidator){
+    public SectionServiceImpl(SectionDao sectionRepo, SectionValidator sectionValidator) {
         this.sectionRepo = sectionRepo;
         this.sectionValidator = sectionValidator;
     }

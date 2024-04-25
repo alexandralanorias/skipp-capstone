@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 @Service
 @Transactional
-public class FacultyServiceImpl implements FacultyService{
+public class FacultyServiceImpl implements FacultyService {
     private final FacultyDao facultyRepo;
     private final SectionDao sectionRepo;
     private final AppUserDao appUserRepo;
@@ -23,13 +23,14 @@ public class FacultyServiceImpl implements FacultyService{
     @Autowired
     public FacultyServiceImpl(FacultyDao facultyRepo, SectionDao sectionRepo,
                               AppUserDao appUserRepo, PasswordEncoder passwordEncoder,
-                              FacultyValidator facultyValidator){
+                              FacultyValidator facultyValidator) {
         this.facultyRepo = facultyRepo;
         this.sectionRepo = sectionRepo;
         this.appUserRepo = appUserRepo;
         this.passwordEncoder = passwordEncoder;
         this.facultyValidator = facultyValidator;
     }
+
     @Override
     public Collection<Faculty> findAllFaculty() {
         return facultyRepo.findAllFaculty();
@@ -38,10 +39,12 @@ public class FacultyServiceImpl implements FacultyService{
     @Override
     public Faculty findByNumber(int facultyNumber, boolean includeSections) {
         Faculty faculty = facultyRepo.findByNumber(facultyNumber);
+
         if(includeSections){
             Collection<Section> sections = sectionRepo.findByFaculty(facultyNumber);
             sections.forEach(section -> faculty.addSection(section));
         }
+
         return faculty;
     }
 
@@ -75,7 +78,7 @@ public class FacultyServiceImpl implements FacultyService{
         facultyRepo.delete(facultyNumber);
     }
 
-    private AppUser facultyAppUser(Faculty faculty){
+    private AppUser facultyAppUser(Faculty faculty) {
         String password = passwordEncoder.encode(faculty.getFirstName().replace(" ", "")+faculty.getLastName().replace(" ", ""));
         return new AppUser(String.format("FC-%s", faculty.getFacultyNumber()), password, "FACULTY");
     }
