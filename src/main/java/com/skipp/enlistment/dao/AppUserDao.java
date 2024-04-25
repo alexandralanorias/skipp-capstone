@@ -1,6 +1,9 @@
 package com.skipp.enlistment.dao;
 
 import com.skipp.enlistment.domain.AppUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 /**
  *  DAO class for saving and retrieving records from the <code>users</code> table.
@@ -8,7 +11,7 @@ import com.skipp.enlistment.domain.AppUser;
 public interface AppUserDao {
 
     // TODO for the implementation class
-    // 1. What stereotype annotation do you use to mark Spring DAO classes?
+    // 1. What stereotype annotation do you use to mark Spring DAO classes? @Repository
     // 2. You may use either JdbcTemplate or JdbcClient for your database operations.
     // 3. Read the docs for your choice from #2. Google for examples on how to use them.
 

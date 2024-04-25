@@ -20,6 +20,12 @@ public class AppUser {
      */
     private String role;
 
+    public AppUser(String username, String passwordHash, String role) {
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.role = role;
+    }
+
     public String getUsername() {
         return username;
     }
